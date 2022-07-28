@@ -181,3 +181,18 @@ input , textarea , select {
   background: var(--green-light);
   color: var(--green-dark);
 }
+
+header {
+  background-color: #2fc18c;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-header {
+  display: flex;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}

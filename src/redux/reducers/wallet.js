@@ -1,5 +1,7 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
+import * as actionTypes from '../actions/actionTypes';
+
 const INITIAL_STATE = {
   currencies: [], // array de string
   expenses: [], // array de objetos, com cada objeto tendo as chaves id, value, currency, method, tag, description e exchangeRates
@@ -9,6 +11,13 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case actionTypes.COIN:
+    console.log(action.currencies);
+    return ({
+      ...state,
+      currencies: action.currencies,
+    });
+
   default:
     return state;
   }
