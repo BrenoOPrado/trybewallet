@@ -11,8 +11,15 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case actionTypes.ADD_ITEM:
+    return ({
+      ...state,
+      expenses: [...state.expenses, {
+        ...action.item,
+        id: state.expenses.length,
+      }],
+    });
   case actionTypes.COIN:
-    console.log(action.currencies);
     return ({
       ...state,
       currencies: action.currencies,

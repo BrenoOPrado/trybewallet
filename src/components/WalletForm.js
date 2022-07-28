@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCoin } from '../redux/actions';
+import { addItem, fetchCoin } from '../redux/actions';
 
 class WalletForm extends Component {
   constructor() {
@@ -9,22 +9,55 @@ class WalletForm extends Component {
     this.state = {
       value: 0,
       description: '',
+      currency: '',
+      method: '',
+      tag: '',
+      invalid: true,
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const { fetchOptions } = this.props;
-    await fetchOptions();
+    fetchOptions();
+  }
+
+  handleRoleValidation = () => {
+    const { value, description, currency, method, tag } = this.state;
+    if (
+      value > 0
+      && description.length > 0
+      && currency.length > 0
+      && method.length > 0
+      && tag.length > 0
+    ) {
+      this.setState({
+        invalid: false,
+      });
+    }
   }
 
   handleInputChange = ({ target }) => {
     this.setState({
       [target.name]: target.value,
-    }, () => this.inputRolesValidation());
+    }, () => this.handleRoleValidation());
+  }
+
+  handleAddField = () => {
+    const { value, description, currency, method, tag } = this.state;
+    const { addProduct } = this.props;
+    addProduct({ value, description, currency, method, tag });
+    this.setState({
+      value: 0,
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+      invalid: true,
+    });
   }
 
   render() {
-    const { value, description } = this.state;
+    const { value, description, currency, method, tag, invalid } = this.state;
     const { options } = this.props;
     return (
       <div>
@@ -43,7 +76,12 @@ class WalletForm extends Component {
           <label htmlFor="currency">
             Moeda:
             {' '}
-            <select name="currency" data-testid="currency-input">
+            <select
+              name="currency"
+              data-testid="currency-input"
+              onChange={ (event) => this.handleInputChange(event) }
+              value={ currency }
+            >
               {
                 options.map((coin) => (
                   <option key={ coin } value={ coin }>
@@ -55,33 +93,50 @@ class WalletForm extends Component {
           </label>
           <label htmlFor="method">
             Método de pagamento:
-            <select name="method" data-testid="method-input">
-              <option value="money">Dinheiro</option>
-              <option value="credit">Cartão de crédito</option>
-              <option value="debt">Cartão de débito</option>
+            <select
+              name="method"
+              data-testid="method-input"
+              onChange={ (event) => this.handleInputChange(event) }
+              value={ method }
+            >
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
           <label htmlFor="tag">
-            Método de pagamento:
-            <select name="tag" data-testid="tag-input">
-              <option value="Food">Alimentação</option>
-              <option value="Leisure">Lazer</option>
-              <option value="Work">Trabalho</option>
-              <option value="Transport">Transporte</option>
-              <option value="Health">Saúde</option>
+            Categoria:
+            <select
+              name="tag"
+              data-testid="tag-input"
+              onChange={ (event) => this.handleInputChange(event) }
+              value={ tag }
+            >
+              <option value="Alimentação">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saúde">Saúde</option>
             </select>
           </label>
           <label htmlFor="description">
             Descrição:
             {' '}
             <input
-              type="number"
+              type="text"
               name="description"
               data-testid="description-input"
               value={ description }
               onChange={ (event) => this.handleInputChange(event) }
             />
           </label>
+          <button
+            type="button"
+            onClick={ () => this.handleAddField() }
+            disabled={ invalid }
+          >
+            Adicionar despesa
+          </button>
         </form>
       </div>
     );
@@ -90,6 +145,7 @@ class WalletForm extends Component {
 
 WalletForm.propTypes = {
   fetchOptions: propTypes.func.isRequired,
+  addProduct: propTypes.func.isRequired,
   options: propTypes.arrayOf(propTypes.string).isRequired,
 };
 
@@ -99,6 +155,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchOptions: () => dispatch(fetchCoin()),
+  addProduct: (items) => dispatch(addItem(items)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
