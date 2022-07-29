@@ -9,7 +9,8 @@ class Header extends Component {
     if (values.length >= 1) {
       values.forEach((element) => {
         const exchangeAux = element.exchangeRates[element.currency];
-        money += parseFloat(element.value) * parseFloat(exchangeAux.ask);
+        const value = (element.value === '') ? 0 : parseFloat(element.value);
+        money += value * parseFloat(exchangeAux.ask);
       });
     }
     return (
