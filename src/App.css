@@ -197,15 +197,11 @@ header img {
 .user-header {
   display: flex;
   flex-direction: column;
+  margin-right: 1%;
 }
 
 .field {
   display: flex;
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
 }
 
 .initial-page {
