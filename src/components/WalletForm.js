@@ -7,57 +7,38 @@ class WalletForm extends Component {
   constructor() {
     super();
     this.state = {
-      value: 0,
+      value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
-      invalid: true,
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
   componentDidMount() {
     const { fetchOptions } = this.props;
-    fetchOptions();
-  }
-
-  handleRoleValidation = () => {
     const { value, description, currency, method, tag } = this.state;
-    if (
-      value > 0
-      && description.length > 0
-      && currency.length > 0
-      && method.length > 0
-      && tag.length > 0
-    ) {
-      this.setState({
-        invalid: false,
-      });
-    }
+    this.setState({
+      initialValues: { value, description, currency, method, tag },
+    });
+    fetchOptions();
   }
 
   handleInputChange = ({ target }) => {
     this.setState({
       [target.name]: target.value,
-    }, () => this.handleRoleValidation());
-  }
-
-  handleAddField = () => {
-    const { value, description, currency, method, tag } = this.state;
-    const { addProduct } = this.props;
-    addProduct({ value, description, currency, method, tag });
-    this.setState({
-      value: 0,
-      description: '',
-      currency: '',
-      method: '',
-      tag: '',
-      invalid: true,
     });
   }
 
+  handleAddField = () => {
+    const { value, description, currency, method, tag, initialValues } = this.state;
+    const { addProduct } = this.props;
+    addProduct({ value, description, currency, method, tag });
+    this.setState(initialValues);
+  }
+
   render() {
-    const { value, description, currency, method, tag, invalid } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     const { options } = this.props;
     return (
       <div>
@@ -133,7 +114,6 @@ class WalletForm extends Component {
           <button
             type="button"
             onClick={ () => this.handleAddField() }
-            disabled={ invalid }
           >
             Adicionar despesa
           </button>

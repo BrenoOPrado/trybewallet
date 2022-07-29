@@ -6,22 +6,21 @@ class Header extends Component {
   render() {
     const { email, values } = this.props;
     let money = 0;
-    values.forEach((element) => {
-      money += money + parseFloat(element.value)
-      + parseFloat(element.exchangeRates[element.currency].ask);
-    });
+    if (values.length >= 1) {
+      values.forEach((element) => {
+        const exchangeAux = element.exchangeRates[element.currency];
+        money += parseFloat(element.value) * parseFloat(exchangeAux.ask);
+      });
+    }
     return (
       <header>
         <p>imagem da carteira</p>
         <div className="user-header">
-          <p>imagem de perfil</p>
-          <section className="user-info">
-            <p data-testid="email-field">{email}</p>
-            <div className="field">
-              <p data-testid="total-field">{ money }</p>
-              <p data-testid="header-currency-field">BRL</p>
-            </div>
-          </section>
+          <p data-testid="email-field">{email}</p>
+          <div className="field">
+            <p data-testid="total-field">{ money.toFixed(2) }</p>
+            <p data-testid="header-currency-field">BRL</p>
+          </div>
         </div>
       </header>
     );
