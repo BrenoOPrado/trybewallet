@@ -15,7 +15,10 @@ class Header extends Component {
     }
     return (
       <header>
-        <p>imagem da carteira</p>
+        <img
+          src="https://i.pinimg.com/originals/77/aa/50/77aa503ddc31d310e3a43915ca16b25c.png"
+          alt="logo wallet"
+        />
         <div className="user-header">
           <p data-testid="email-field">{email}</p>
           <div className="field">
