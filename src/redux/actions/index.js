@@ -8,7 +8,7 @@ export const addItem = (values) => (dispatch) => fetch('https://economia.awesome
   .then((response) => response.json())
   .then((expenses) => dispatch(add({ ...values, exchangeRates: expenses })));
 
-export const removeItem = (item) => ({ type: actionTypes.REMOVE_ITEM, item });
+export const removeItem = (id) => ({ type: actionTypes.REMOVE_ITEM, id });
 
 export const editItem = (index) => ({ type: actionTypes.EDIT_ITEM, index });
 

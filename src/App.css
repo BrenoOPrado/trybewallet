@@ -185,13 +185,13 @@ input , textarea , select {
 header {
   background-color: #004715;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 header img {
-  width: 80px;
   height: 80px;
+  width: 80px;
 }
 
 .user-header {
@@ -212,10 +212,10 @@ header img {
 .login-page {
   background-color: white;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 5%;
+  flex-direction: column;
   border-radius: 15px;
+  padding: 5%;
 }
 
 .login-page section {
@@ -235,8 +235,8 @@ thead {
 }
 
 th , td {
-  width: 150px;
   border: darkgrey solid 2px;
+  width: 150px;
 }
 
 td {

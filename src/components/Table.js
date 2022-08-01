@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { removeItem } from '../redux/actions';
 
 class Table extends Component {
   render() {
-    const { expenses } = this.props;
+    const { expenses, deleteItem } = this.props;
     return (
       <table>
         <thead>
@@ -25,10 +26,12 @@ class Table extends Component {
             const exchangeAux = item.exchangeRates[item.currency];
             const value = (item.value === '') ? 0 : parseFloat(item.value);
             const money = (value * parseFloat(exchangeAux.ask)).toFixed(2);
+            const description = (item.description === '')
+              ? 'Sem descrição' : item.description;
             return (
               <tbody key={ item.id }>
                 <tr>
-                  <td>{item.description}</td>
+                  <td>{description}</td>
                   <td>{item.tag}</td>
                   <td>{item.method}</td>
                   <td>{value.toFixed(2).toString()}</td>
@@ -36,6 +39,21 @@ class Table extends Component {
                   <td>{parseFloat(exchangeAux.ask).toFixed(2).toString()}</td>
                   <td>{money.toString()}</td>
                   <td>Real</td>
+                  <td>
+                    <button
+                      type="button"
+                      data-testid="delete-btn"
+                      onClick={ () => deleteItem(item.id) }
+                    >
+                      Excluir
+                    </button>
+                    <button
+                      type="button"
+                      data-testid="edit-btn"
+                    >
+                      Editar
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             );
@@ -59,10 +77,15 @@ Table.propTypes = {
       name: propTypes.string,
     })),
   })).isRequired,
+  deleteItem: propTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(Table);
+const mapDispatchToProps = (dispatch) => ({
+  deleteItem: (state) => dispatch(removeItem(state)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

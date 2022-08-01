@@ -11,6 +11,11 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case actionTypes.REMOVE_ITEM:
+    return {
+      ...state,
+      expenses: state.expenses.filter((item) => item.id !== action.id),
+    };
   case actionTypes.ADD_ITEM:
     return ({
       ...state,
