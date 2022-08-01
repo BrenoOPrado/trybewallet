@@ -9,3 +9,5 @@ export const LOGIN = 'LOGIN';
 export const FETCH_COIN = 'FETCH_COIN';
 
 export const COIN = 'COIN';
+
+export const EDITED = 'EDITED';

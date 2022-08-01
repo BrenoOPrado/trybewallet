@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { removeItem } from '../redux/actions';
+import { editItem, removeItem } from '../redux/actions';
 
 class Table extends Component {
   render() {
-    const { expenses, deleteItem } = this.props;
+    const { expenses, deleteItem, edit, editor } = this.props;
     return (
       <table>
         <thead>
@@ -43,6 +43,8 @@ class Table extends Component {
                     <button
                       type="button"
                       data-testid="delete-btn"
+                      className="delete-btn"
+                      disabled={ editor }
                       onClick={ () => deleteItem(item.id) }
                     >
                       Excluir
@@ -50,6 +52,8 @@ class Table extends Component {
                     <button
                       type="button"
                       data-testid="edit-btn"
+                      className="edit-btn"
+                      onClick={ () => edit(item.id) }
                     >
                       Editar
                     </button>
@@ -78,14 +82,18 @@ Table.propTypes = {
     })),
   })).isRequired,
   deleteItem: propTypes.func.isRequired,
+  edit: propTypes.func.isRequired,
+  editor: propTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  editor: state.wallet.editor,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   deleteItem: (state) => dispatch(removeItem(state)),
+  edit: (state) => dispatch(editItem(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

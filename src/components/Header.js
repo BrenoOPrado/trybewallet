@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
-    const { email, values } = this.props;
+    const { email, values, editor } = this.props;
     let money = 0;
     if (values.length >= 1) {
       values.forEach((element) => {
@@ -13,6 +13,8 @@ class Header extends Component {
         money += value * parseFloat(exchangeAux.ask);
       });
     }
+    // gambiarra
+    const classNameMoney = (editor) ? 'total-field-edit' : 'total-field';
     return (
       <header>
         <img
@@ -22,8 +24,12 @@ class Header extends Component {
         <div className="user-header">
           <p data-testid="email-field">{email}</p>
           <div className="field">
-            <p data-testid="total-field">{ money.toFixed(2) }</p>
-            <p data-testid="header-currency-field">BRL</p>
+            <p data-testid="total-field" className={ classNameMoney }>
+              {
+                money.toFixed(2)
+              }
+            </p>
+            <p data-testid="header-currency-field" className={ classNameMoney }>BRL</p>
           </div>
         </div>
       </header>
@@ -40,11 +46,13 @@ Header.propTypes = {
       ask: propTypes.string,
     }),
   })).isRequired,
+  editor: propTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
   values: state.wallet.expenses,
+  editor: state.wallet.editor,
 });
 
 export default connect(mapStateToProps, null)(Header);

@@ -1,16 +1,41 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-
 import * as actionTypes from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  currencies: [], // array de string
-  expenses: [], // array de objetos, com cada objeto tendo as chaves id, value, currency, method, tag, description e exchangeRates
-  editor: false, // valor booleano que indica de uma despesa está sendo editada
-  idToEdit: 0, // valor numérico que armazena o id da despesa que esta sendo editada
+  currencies: [],
+  expenses: [],
+  editor: false,
+  idToEdit: 0,
+};
+
+const editItem = (state, { values }) => {
+  const { expenses, idToEdit } = state;
+  const { value, description, currency, method, tag } = values;
+  expenses[idToEdit] = {
+    ...expenses[idToEdit],
+    value,
+    description,
+    currency,
+    method,
+    tag,
+  };
+  return ({
+    ...state,
+    expenses,
+    editor: false,
+    idToEdit: 0,
+  });
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case actionTypes.EDITED:
+    return editItem(state, action);
+  case actionTypes.EDIT_ITEM:
+    return {
+      ...state,
+      editor: true,
+      idToEdit: action.id,
+    };
   case actionTypes.REMOVE_ITEM:
     return {
       ...state,

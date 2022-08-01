@@ -200,6 +200,14 @@ header img {
   margin-right: 1%;
 }
 
+.total-field {
+  color: black;
+}
+
+.total-field-edit {
+  color: white;
+}
+
 .field {
   display: flex;
 }
