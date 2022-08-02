@@ -183,8 +183,8 @@ input , textarea , select {
 }
 
 header {
-  background-color: #004715;
   align-items: center;
+  background-color: #004715;
   display: flex;
   justify-content: space-between;
 }
@@ -218,10 +218,10 @@ header img {
 }
 
 .login-page {
-  background-color: white;
   align-items: center;
-  display: flex;
   border-radius: 15px;
+  background-color: white;
+  display: flex;
   flex-direction: column;
   padding: 5%;
 }
