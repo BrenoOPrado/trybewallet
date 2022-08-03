@@ -60,6 +60,7 @@ class WalletForm extends Component {
             {' '}
             <select
               name="currency"
+              id="currency"
               data-testid="currency-input"
               onChange={ (event) => this.handleInputChange(event) }
               value={ currency }
@@ -77,6 +78,7 @@ class WalletForm extends Component {
             Método de pagamento:
             <select
               name="method"
+              id="method"
               data-testid="method-input"
               onChange={ (event) => this.handleInputChange(event) }
               value={ method }
@@ -90,6 +92,7 @@ class WalletForm extends Component {
             Categoria:
             <select
               name="tag"
+              id="tag"
               data-testid="tag-input"
               onChange={ (event) => this.handleInputChange(event) }
               value={ tag }

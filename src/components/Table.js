@@ -22,46 +22,54 @@ class Table extends Component {
           </tr>
         </thead>
         {
-          (expenses.length <= 0) ? <> </> : expenses.map((item) => {
-            const exchangeAux = item.exchangeRates[item.currency];
-            const value = (item.value === '') ? 0 : parseFloat(item.value);
-            const money = (value * parseFloat(exchangeAux.ask)).toFixed(2);
-            const description = (item.description === '')
-              ? 'Sem descrição' : item.description;
-            return (
-              <tbody key={ item.id }>
+          (expenses.length <= 0)
+            ? (
+              <tbody>
                 <tr>
-                  <td>{description}</td>
-                  <td>{item.tag}</td>
-                  <td>{item.method}</td>
-                  <td>{value.toFixed(2).toString()}</td>
-                  <td>{exchangeAux.name}</td>
-                  <td>{parseFloat(exchangeAux.ask).toFixed(2).toString()}</td>
-                  <td>{money.toString()}</td>
-                  <td>Real</td>
-                  <td>
-                    <button
-                      type="button"
-                      data-testid="delete-btn"
-                      className="delete-btn"
-                      disabled={ editor }
-                      onClick={ () => deleteItem(item.id) }
-                    >
-                      Excluir
-                    </button>
-                    <button
-                      type="button"
-                      data-testid="edit-btn"
-                      className="edit-btn"
-                      onClick={ () => edit(item.id) }
-                    >
-                      Editar
-                    </button>
-                  </td>
+                  <td>Você não possui despesas</td>
                 </tr>
               </tbody>
-            );
-          })
+            )
+            : expenses.map((item) => {
+              const exchangeAux = item.exchangeRates[item.currency];
+              const value = (item.value === '') ? 0 : parseFloat(item.value);
+              const money = (value * parseFloat(exchangeAux.ask)).toFixed(2);
+              const description = (item.description === '')
+                ? 'Sem descrição' : item.description;
+              return (
+                <tbody key={ item.id }>
+                  <tr>
+                    <td>{description}</td>
+                    <td>{item.tag}</td>
+                    <td>{item.method}</td>
+                    <td>{value.toFixed(2).toString()}</td>
+                    <td>{exchangeAux.name}</td>
+                    <td>{parseFloat(exchangeAux.ask).toFixed(2).toString()}</td>
+                    <td>{money.toString()}</td>
+                    <td>Real</td>
+                    <td>
+                      <button
+                        type="button"
+                        data-testid="delete-btn"
+                        className="delete-btn"
+                        disabled={ editor }
+                        onClick={ () => deleteItem(item.id) }
+                      >
+                        Excluir
+                      </button>
+                      <button
+                        type="button"
+                        data-testid="edit-btn"
+                        className="edit-btn"
+                        onClick={ () => edit(item.id) }
+                      >
+                        Editar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              );
+            })
         }
       </table>
     );
