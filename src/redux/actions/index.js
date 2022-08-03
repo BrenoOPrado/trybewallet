@@ -1,5 +1,3 @@
-// Coloque aqui suas actions
-
 import * as actionTypes from './actionTypes';
 
 const expensesURL = 'https://economia.awesomeapi.com.br/json/all';

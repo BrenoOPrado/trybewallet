@@ -1,12 +1,12 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithRedux } from './helpers/renderWith';
 import mockData from './helpers/mockData';
 import WalletForms from '../components/WalletForm';
 
 describe('Testes referentes a parte do `WalletForms`', () => {
-    it('o forms é renderizado coretamente', () => {
+    it('o forms é renderizado coretamente', async () => {
         renderWithRedux(<WalletForms />);
 
         screen.getByText('Valor:');
@@ -130,7 +130,7 @@ describe('Testes referentes a parte do `WalletForms`', () => {
             }
         } });
 
-        const addBtn = screen.queryByRole('button', { name: /adicionar despesa/i });
-        expect(addBtn).not.toBeDefined();
+        const addBtn = screen.getByRole('button', { name: /editar despesa/i });
+        expect(addBtn).toBeDefined();
     });
 });

@@ -66,9 +66,9 @@ describe('Testes referentes a parte do `Table`', () => {
         screen.getByRole('cell', { name: /dinheiro/i });
         screen.getByRole('cell', { name: /10\.00/i });
         screen.getByRole('cell', { name: /dólar americano\/real brasileiro/i });
-        // screen.getByRole('cell', { name: /5\.26/i });
-        // screen.getByRole('cell', { name: /52\.62/i });
-        // screen.getByRole('cell', { name: /real/i });
+        screen.getByRole('cell', { name: '4.75' });
+        screen.getByRole('cell', { name: '47.53' });
+        screen.getByRole('cell', { name: 'Real' });
         const edit = screen.getByRole('button', { name: /editar/i });
         const remove = screen.getByRole('button', { name: /excluir/i });
 
@@ -118,7 +118,6 @@ describe('Testes referentes a parte do `Table`', () => {
             }
         } });
 
-        // screen.getByRole('cell', { name: /0\.00/i });
         screen.getByRole('cell', { name: /sem descrição/i });
 
         const remove = screen.getByRole('button', { name: /excluir/i });
@@ -126,6 +125,7 @@ describe('Testes referentes a parte do `Table`', () => {
 
         userEvent.click(edit);
 
+        expect(screen.getAllByRole('cell', { name: '0.00' })).toHaveLength(2);
         expect(remove).toHaveProperty('disabled');
     });
 });

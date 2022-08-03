@@ -76,6 +76,7 @@ class WalletEditForm extends Component {
             Método de pagamento:
             <select
               name="method"
+              id="method"
               data-testid="method-input"
               onChange={ (event) => this.handleInputChange(event) }
               value={ method }
@@ -89,6 +90,7 @@ class WalletEditForm extends Component {
             Categoria:
             <select
               name="tag"
+              id="tag"
               data-testid="tag-input"
               onChange={ (event) => this.handleInputChange(event) }
               value={ tag }
