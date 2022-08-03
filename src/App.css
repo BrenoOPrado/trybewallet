@@ -219,8 +219,8 @@ header img {
 
 .login-page {
   align-items: center;
-  border-radius: 15px;
   background-color: white;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   padding: 5%;

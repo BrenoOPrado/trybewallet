@@ -58,6 +58,7 @@ class WalletEditForm extends Component {
             {' '}
             <select
               name="currency"
+              id="currency"
               data-testid="currency-input"
               onChange={ (event) => this.handleInputChange(event) }
               value={ currency }
