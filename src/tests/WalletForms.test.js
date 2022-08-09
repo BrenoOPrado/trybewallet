@@ -133,4 +133,52 @@ describe('Testes referentes a parte do `WalletForms`', () => {
         const addBtn = screen.getByRole('button', { name: /editar despesa/i });
         expect(addBtn).toBeDefined();
     });
+
+    it('o form chama o fetch corretamente', () => {
+      global.fetch = jest.fn().mockResolvedValue({
+        json: jest.fn().mockResolvedValue(mockData),
+      });
+
+      renderWithRedux(<WalletForms />, { initialState: {
+        user: {
+          email: 'exemplo@teste.com'
+        },
+        wallet: {
+          currencies: [
+            'USD',
+            'CAD',
+            'GBP',
+            'ARS',
+            'BTC',
+            'LTC',
+            'EUR',
+            'JPY',
+            'CHF',
+            'AUD',
+            'CNY',
+            'ILS',
+            'ETH',
+            'XRP',
+            'DOGE'
+          ],
+          expenses: [
+            {
+              value: '',
+              description: '',
+              currency: 'USD',
+              method: 'Dinheiro',
+              tag: 'Alimentação',
+              exchangeRates: {
+                ...mockData,
+              },
+              id: 0
+            }
+          ],
+          editor: true,
+          idToEdit: 0
+        }
+    } });
+
+      expect(fetch).toHaveBeenCalled();
+    });
 });
